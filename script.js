@@ -25,3 +25,27 @@ const onlineCount = document.getElementById('onlineCount');
 const roomStatus = document.getElementById('roomStatus');
 
 let users = [];
+let currentUser = null;
+let allMessages = [];
+let typingUsers = new Set();
+
+function renderUsers() {
+    usersList.innerHTML = users.map(user => `
+        <div class="user-item" ${user.id === currentUser.id ? 'active' : ''}>
+        <div class="user-avatar">${user.emoji}</div>
+        <div class="user-name">${user.name}</div>
+        <div class="user-status ${user.status}"></div>
+        </div>
+        `).join('');
+        onlineCount.textContent = `${users.length} online`;
+}
+
+
+function displayMessage(text, user, isOwn = false) {
+    const messageEl = document.createElement('div');
+    messageEl.className = `message-group ${isOwn ? 'sent' : 'received'}`;
+
+    const now = new Date();
+    
+}
+
