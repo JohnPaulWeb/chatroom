@@ -46,6 +46,68 @@ function displayMessage(text, user, isOwn = false) {
     messageEl.className = `message-group ${isOwn ? 'sent' : 'received'}`;
 
     const now = new Date();
-    
+    const time = now.toLocaleDateString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+    messageEl.innerHTML = `
+        <div class="message-avatar">${user.emoji}</div>
+        <div class="message-content">
+            <div class="message-user">${user.name}</div>
+            <div class="message-bubble">${escapeHtml(text)}</div>
+            <div class="message-time">${time}</div>
+        </div>
+    `;
+
+    messagesContainer.appendChild(messageEl);
+    scrollToBottom();
+}
+
+
+function showTypingIndicator(user) {
+    if (typingUsers.has(user.id)) return;
+
+    typingUsers.add(user.id);
+
+    const typingEl = document.createElement('div');
+    typingEl.className = 'message-group received';
+    typingEl.id = `typing-${user.id}`;
+    typingEl.innerHTML = `
+    <div class="message-avatar">${user.emoji}</div>
+    <div class="message-content">
+        <div class="message-user">${user.name}</div>
+        <div class="typing-indicator">
+            <div class="typing-dot"></div>
+             <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+        </div>
+    </div>
+    `;
+
+    messagesContainer.appendChild(typingEl);
+    scrollToBottom();
+}
+
+
+function removeTypingIndicator(userId) {
+    typingUsers.delete(userId);
+    const typingEl = document.getElementById(`typing-${userId}`);
+    if (typingEl) typingEl.remove();
+}
+
+function sendMessage() {
+    const text = messageInput.value.trim();
+    if (!text) return;
+
+    displayMessage(text, currentUser, true);
+    allMessages.push({ text, user: currentUser, time: Date.now() });
+    messageInput.value = '';
+
+    setTimeout(() => {
+        const randomUser = users[Math.floor(Math.random() * users.length - 1)];
+        showTypingIndicator(randomUser);
+
+        setTimeout(() => {
+            
+        })
+    })
 }
 
