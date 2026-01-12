@@ -1,0 +1,86 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Zed",
+            "emoji": "😎",
+            "status": "online"
+        },
+        {
+            "id": 2,
+            "name": "Jax",
+            "emoji": "🤓",
+            "status": "online"
+        },
+         {
+            "id": 3,
+            "name": "Yasuo",
+            "emoji": "🤓",
+            "status": "online"
+        },
+         {
+            "id": 4,
+            "name": "Yone",
+            "emoji": "🤓",
+            "status": "online"
+        },
+         {
+            "id": 5,
+            "name": "Ezreal",
+            "emoji": "🤓",
+            "status": "online"
+        }
+    ],
+    "messages": [
+        {
+            "id": 1,
+            "userId": 2,
+            "text": "Welcome to the Chatroom!",
+            "timestamp": "10:30 AM"
+        },
+        {
+            "id": 2,
+            "userId": 3,
+            "text": "Hey There!",
+            "timestamp": "10:31 AM"
+        },
+        {
+            "id": 3,
+            "userId": 1,
+            "text": "Gree to see Everyone!",
+            "timestamp": "10:32 AM"
+        },
+        {
+            "id": 4,
+            "userId": 4,
+            "text": "This is an awesome chatroom!",
+            "timestamp": "10:33 AM"
+        },
+        {
+            "id": 5,
+            "userId": 2,
+            "text": "Real time messaging is awesome!",
+            "timestamp": "10:34 AM"
+        }
+    ],
+
+    "responses": [
+        "That's great!",
+        "I totally agree!",
+        "Nice 1",
+        "Well said!",
+        "You are right",
+        "Interesting point!",
+        "Makes sense!",
+        "Awesome this"
+    ],
+    "incomingMessages": [
+        "Hello everyone!",
+        "How's it going?",
+        "What's up?",
+        "Did you see the game last night?",
+        "Any plans for the weekend?",
+        "Can't wait for the new movie release!",
+        "Just finished a great book!"
+    ]
+}

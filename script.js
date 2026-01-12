@@ -106,8 +106,86 @@ function sendMessage() {
         showTypingIndicator(randomUser);
 
         setTimeout(() => {
-            
-        })
-    })
+            removeTypingIndicator(randomUser.id);
+            const response = chatData.responses[Math.floor(Math.random() * chatData.responses.length)];
+            displayMessage(response, randomUser, false);
+            allMessages.push({ text: response, user: randomUser, time: Date.now() });
+        }, 1000 + Math.random() * 1500);
+    }, 800);
 }
 
+function simulateIncomingMessages() {
+    if (Math.random() > 0.5) {
+        const randomUser = users[Math.floor(Math.random() * users.length - 1)];
+        showTypingIndicator(randomUser);
+
+        setTimeout(() => {
+            removeTypingIndicator(randomUser.id);
+            const msg = chatData.incomingMessages[Math.floor(Math.random() * chatData.incomingMessages.length)];
+            displayMessage(msg, randomUser, false);
+            allMessages.push({ text: msg, user: randomUser, time: Date.now() });
+        }, 1000 + Math.random() * 1500);
+    }
+}
+
+function scrollToBottom() {
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function escapeHtml(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
+}
+
+sendBtn.addEventListener('click', sendMessage);
+messageInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+    }
+});
+
+messageInput.addEventListener('input', () => {
+    messageInput.style.height = 'auto';
+    messageInput.style.height = Math.min(messageInput.scrollHeight, 100) + 'px';
+});
+
+function init() {
+    users = chatData.users;
+    currentUser = users.find(u => u.id === 5);
+
+    renderUsers();
+    roomStatus.textContent = 'General Chat Room';
+
+    chatData.messages.forEach(msg => {
+        const user = users.find(u => u.id === msg.userId);
+        if (user) {
+            displayMessage(msg.text, user, false);
+            allMessages.push({ text: msg.text, user }); 
+        }
+    });
+
+
+    setInterval(simulateIncomingMessages, 5000 + Math.random() * 5000);
+}
+
+function initWithDefaults() {
+    users = [
+        { id: 1, name: 'Layla', emoji: '😊', status: 'online' },
+        { id: 2, name: 'Gusion', emoji: '�', status: 'online' },
+        { id: 3, name: 'Alucard', emoji: '😊', status: 'online' },
+        { id: 4, name: 'Roger', emoji: '👤', status: 'online' },
+        { id: 5, name: 'You', emoji: '😊', status: 'online' },
+    ];
+    currentUser = users[4];
+    init();
+}
+
+
+loadChatData();
